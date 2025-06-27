@@ -20,46 +20,51 @@ const NavBar = () => {
   };
 
   return (
-    <div className="flex justify-end pr-10 border-b-[1px] gap-5 py-4 relative align-middle">
-      {localUser && localUser.role !== "user" ? (
-        <Link
-          to="/setting"
-          className="bg-white py-2 px-4 rounded-md hover:bg-gray-300"
-        >
-          Einstellung
-        </Link>
-      ) : (
-        ""
-      )}
-
-      {!localUser ? (
-        <Link
-          to="/login"
-          className="bg-blue-600 py-2 px-3 border rounded-md text-white"
-        >
-          Login
-        </Link>
-      ) : (
-        <div className="relative">
-          <button
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="bg-gray-200 py-2 px-4 rounded-md hover:bg-gray-300"
+    <div className="flex border-b-[1px] py-4 relative justify-between ">
+      <h1 className="font-bold from-neutral-800 pt-2">
+        Roots and robot project
+      </h1>
+      <div className="flex gap-5">
+        {localUser && localUser.role !== "user" ? (
+          <Link
+            to="/setting"
+            className="bg-white py-2 px-4 rounded-md hover:bg-gray-300"
           >
-            Hi {localUser.full_name}
-          </button>
+            Einstellung
+          </Link>
+        ) : (
+          ""
+        )}
 
-          {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg z-10">
-              <button
-                onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-              >
-                Ausloggen
-              </button>
-            </div>
-          )}
-        </div>
-      )}
+        {!localUser ? (
+          <Link
+            to="/login"
+            className="bg-blue-600 py-2 px-3 border rounded-md text-white"
+          >
+            Login
+          </Link>
+        ) : (
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="bg-gray-200 py-2 px-4 rounded-md hover:bg-gray-300"
+            >
+              Hi {localUser.full_name}
+            </button>
+
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg z-10">
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                >
+                  Log out
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

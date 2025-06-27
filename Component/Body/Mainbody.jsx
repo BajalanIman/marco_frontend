@@ -5,21 +5,25 @@ import { Link } from "react-router-dom";
 import NavBar from "../NavigationBar/NavBar";
 
 function Mainbody() {
-  const areaName = "Area: Großmutz";
+  // const areaName = "Area: Großmutz";
 
   return (
     <>
       <div className="w-[100%] h-screen flex justify-center items-center">
         <div className="w-[1200px] h-[100%] ">
           <NavBar />
-          <h2 className="w-[100%] pl-5 py-5 font-bold">{areaName}</h2>
-          <div className="flex justify-center items-center gap-5">
+          {/* {areaName && (
+            <h1 className="w-[100%] pl-5 py-5 font-bold  text-center">
+              {areaName}
+            </h1>
+          )} */}
+          <div className="flex justify-center items-center gap-5 mt-5">
             <Map />
-            <div className="w-[45%] border border-gray-500 p-3 h-[400px]">
+            {/* <div className="w-[45%] border border-gray-500 p-3 h-[400px]">
               <p>information</p>
               <p>langitude:</p>
               <p>Latitude: </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
