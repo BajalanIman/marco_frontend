@@ -13,7 +13,7 @@ const FilterTrees = ({
   }, [trees]);
 
   return (
-    <div className="mb-1 flex flex-col w-96">
+    <div className="mb-1 flex flex-col w-[400px]">
       <label htmlFor="species-select" className="pb-2">
         <strong>Select species:</strong>
       </label>
@@ -34,7 +34,7 @@ const FilterTrees = ({
             setSelectedSpecies(selected.filter((v) => v !== "ALL"));
           }
         }}
-        style={{ width: "50%", height: "100px" }}
+        style={{ width: "90%", height: "70%" }}
       >
         <option value="ALL">All</option>
         {speciesOptions.map((species) => (

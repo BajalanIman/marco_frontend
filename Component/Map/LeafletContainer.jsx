@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import tree from "../../assets/tree-svgrepo-com.svg";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -14,6 +14,7 @@ import {
   LayersControl, // ✅ Added for multiple base layers
 } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
+import { Link } from "react-router-dom";
 
 // Helper to get centroid of a polygon
 function getCentroid(coords) {
@@ -65,6 +66,10 @@ const LeafletContainer = ({
   setZoomLevel,
   plots,
   filteredTrees,
+  setTreeVideo,
+  setShowVideo,
+  setShowFilter,
+  setShowPanorama,
 }) => {
   const center = [52.93754351, 13.12866669];
 
@@ -74,6 +79,7 @@ const LeafletContainer = ({
     iconAnchor: [10, 20],
     popupAnchor: [0, -20],
   });
+  //   const [treeVideo, setTreeVideo] = useState([]);
 
   return (
     <MapContainer
@@ -82,7 +88,11 @@ const LeafletContainer = ({
       maxZoom={22}
       minZoom={4}
       scrollWheelZoom={true}
-      style={{ height: "350px", width: "800px" }}
+      style={{
+        height: "350px",
+        width: "700px",
+        transition: "width 0.3s ease-in-out",
+      }}
     >
       {/* ✅ Add multiple base layers */}
       <LayersControl position="topright">
@@ -152,8 +162,19 @@ const LeafletContainer = ({
             >
               <Popup>
                 <strong>Tree number: {tree.tree_no}</strong>
-                <br />
-                Species: {tree.species}
+                <p>Species: {tree.species}</p>
+
+                <button
+                  className="hover:text-blue-600"
+                  onClick={() => {
+                    setTreeVideo(tree);
+                    setShowVideo(true);
+                    setShowFilter(false);
+                    setShowPanorama(false);
+                  }}
+                >
+                  Video
+                </button>
               </Popup>
             </Marker>
           );
