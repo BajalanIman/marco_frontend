@@ -71,8 +71,8 @@ const LeafletContainer = ({
   const treeIcon = new L.Icon({
     iconUrl: tree,
     iconSize: [20, 20],
-    iconAnchor: [14, 28],
-    popupAnchor: [0, -28],
+    iconAnchor: [10, 20],
+    popupAnchor: [0, -20],
   });
 
   return (

@@ -108,9 +108,13 @@ const Setting = () => {
           </div>
         )}
       </div>
-      <div className=" fixed top-3 left-3 bg-blue-500 rounded-full p-1 ">
+      <div className=" fixed top-3 left-3  rounded-full p-1 ">
         <Link to="/">
-          <CircleX />
+          <CircleX
+            fill="black"
+            color="white"
+            style={{ width: "32px", height: "32px" }}
+          />
         </Link>
       </div>
     </div>
