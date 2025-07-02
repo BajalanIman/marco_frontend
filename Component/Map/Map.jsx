@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import FilterTrees from "./FilterTrees";
 import LeafletContainer from "./LeafletContainer";
 import ShowVideos from "./ShowVideos";
+import FilterYear from "./FilterYear";
 
 function Map() {
   const [plots, setPlots] = useState([]);
   const [trees, setTrees] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(8);
   const [selectedSpecies, setSelectedSpecies] = useState([]);
+  const [selectedYear, setSelectedSYear] = useState([]);
   const [treeVideo, setTreeVideo] = useState({});
   const [showFilter, setShowFilter] = useState(true);
   const [showPanorama, setShowPanorama] = useState(false);
@@ -38,11 +40,33 @@ function Map() {
     new Set(trees.map((t) => t.species))
   ).sort();
 
+  const yearOptions = Array.from(
+    new Set(trees.map((t) => t.year_planted))
+  ).sort();
+
   // Filter trees
+  // const filteredTrees =
+  //   selectedSpecies.length === 0 || selectedSpecies.includes("ALL")
+  //     ? trees
+  //     : trees.filter((tree) => selectedSpecies.includes(tree.species));
+
   const filteredTrees =
-    selectedSpecies.length === 0 || selectedSpecies.includes("ALL")
+    (selectedSpecies.length === 0 || selectedSpecies.includes("ALL")) &&
+    (selectedYear.length === 0 || selectedYear.includes("ALL"))
       ? trees
-      : trees.filter((tree) => selectedSpecies.includes(tree.species));
+      : trees.filter((tree) => {
+          const speciesMatch =
+            selectedSpecies.length === 0 || selectedSpecies.includes("ALL")
+              ? true
+              : selectedSpecies.includes(tree.species);
+
+          const yearMatch =
+            selectedYear.length === 0 || selectedYear.includes("ALL")
+              ? true
+              : selectedYear.includes(String(tree.year_planted)); // Assuming tree.year is the correct property
+
+          return speciesMatch && yearMatch;
+        });
 
   return (
     <div className="flex justify-start w-full">
@@ -108,12 +132,21 @@ function Map() {
             {/* Panel content */}
             <div className="h-64 flex w-[400px]">
               {showFilter && !treeVideo.tree_id && (
-                <FilterTrees
-                  trees={trees}
-                  selectedSpecies={selectedSpecies}
-                  setSelectedSpecies={setSelectedSpecies}
-                  speciesOptions={speciesOptions}
-                />
+                <div className="flex flex-col gap-4">
+                  <FilterTrees
+                    trees={trees}
+                    selectedSpecies={selectedSpecies}
+                    setSelectedSpecies={setSelectedSpecies}
+                    speciesOptions={speciesOptions}
+                  />
+                  <hr className="w-[80%]" />
+                  <FilterYear
+                    trees={trees}
+                    selectedYear={selectedYear}
+                    setSelectedSYear={setSelectedSYear}
+                    yearOptions={yearOptions}
+                  />
+                </div>
               )}
 
               {showPanorama && !treeVideo.tree_id && (
@@ -135,11 +168,15 @@ function Map() {
       ) : (
         <div className="w-[400px] pr-16">
           <p className="text-justify pt-2">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-            Lorem ipsum dolor sit amet.
+            The primary objectives of this web tool are to centralize, organize,
+            and present data collected from various agroforestry sites
+            associated with Eberswalde University of Sustainable Development.
+            All relevant information is stored in a structured database,
+            allowing for efficient data management and accessibility. You can
+            interact with the map interface to explore specific locations in
+            greater detail. By zooming in and selecting individual plots,
+            additional data and functionalities become available, offering a
+            more comprehensive understanding of each site.
           </p>
         </div>
       )}
@@ -150,6 +187,7 @@ function Map() {
         setZoomLevel={setZoomLevel}
         plots={plots}
         filteredTrees={filteredTrees}
+        // filteredYears={filteredYears}
         setTreeVideo={setTreeVideo}
         setShowVideo={setShowVideo}
         setShowFilter={setShowFilter}

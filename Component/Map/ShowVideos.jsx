@@ -25,14 +25,15 @@ const ShowVideos = ({ treeId }) => {
       style={{
         fontFamily: "Arial, sans-serif",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         width: 400,
       }}
     >
-      {/* <h3>Tree ID: {treeId}</h3> */}
+      <h3>Tree ID: {treeId}</h3>
 
       {treeVideos.length === 0 ? (
-        ""
+        <p>No videos found for this tree.</p>
       ) : (
         // <p>No videos found for this tree.</p>
         <>
