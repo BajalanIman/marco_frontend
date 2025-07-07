@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import tree from "../../assets/tree-svgrepo-com.svg";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import * as turf from "@turf/turf";
 
 import {
   MapContainer,
@@ -15,6 +16,37 @@ import {
 } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { Link } from "react-router-dom";
+
+function LogMapCenterOnZoom({ zoomLevel, plots, setMapCenter }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (zoomLevel > 14) {
+      const center = map.getCenter();
+      const centerPoint = turf.point([center.lng, center.lat]);
+
+      for (const plot of plots) {
+        if (plot.coordinates && plot.coordinates.length > 2) {
+          const polygon = turf.polygon([
+            plot.coordinates.map(([lng, lat]) => [lng, lat]),
+          ]);
+
+          if (turf.booleanPointInPolygon(centerPoint, polygon)) {
+            setMapCenter(plot.plot_id);
+            // console.log(
+            //   `✅ Screen center is inside Plot "${plot.plot_name}", ${plot.plot_id}`
+            // );
+            break; // Exit early after finding the first match
+          }
+        }
+      }
+
+      //   console.log("🗺️ Map screen center:", center.lat, center.lng);
+    }
+  }, [zoomLevel, map, plots, setMapCenter]);
+
+  return null;
+}
 
 // Helper to get centroid of a polygon
 function getCentroid(coords) {
@@ -70,8 +102,26 @@ const LeafletContainer = ({
   setShowVideo,
   setShowFilter,
   setShowPanorama,
+  setMapCenter,
 }) => {
   const center = [52.93754351, 13.12866669];
+
+  useEffect(() => {
+    if (zoomLevel > 14) {
+      plots.forEach((plot) => {
+        if (plot.coordinates && plot.coordinates.length > 2) {
+          const geojsonPolygon = turf.polygon([
+            plot.coordinates.map(([lng, lat]) => [lng, lat]),
+          ]);
+          const centroid = turf.centroid(geojsonPolygon);
+          //   console.log(
+          //     `Centroid for plot "${plot.plot_name}":`,
+          //     centroid.geometry.coordinates
+          //   );
+        }
+      });
+    }
+  }, [zoomLevel, plots]);
 
   const treeIcon = new L.Icon({
     iconUrl: tree,
@@ -112,6 +162,11 @@ const LeafletContainer = ({
       </LayersControl>
 
       <ZoomTracker setZoomLevel={setZoomLevel} />
+      <LogMapCenterOnZoom
+        zoomLevel={zoomLevel}
+        plots={plots}
+        setMapCenter={setMapCenter}
+      />
 
       {/* Plot Markers */}
       <MarkerClusterGroup chunkedLoading>

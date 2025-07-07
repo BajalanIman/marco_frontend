@@ -14,6 +14,11 @@ function Map() {
   const [showFilter, setShowFilter] = useState(true);
   const [showPanorama, setShowPanorama] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [mapCenter, setMapCenter] = useState();
+
+  // useEffect(() => {
+  //   console.log("📍 mapCenter updated:", mapCenter);
+  // }, [mapCenter]);
 
   // Fetch plots and trees
   useEffect(() => {
@@ -133,19 +138,27 @@ function Map() {
             <div className="h-64 flex w-[400px]">
               {showFilter && !treeVideo.tree_id && (
                 <div className="flex flex-col gap-4">
-                  <FilterTrees
-                    trees={trees}
-                    selectedSpecies={selectedSpecies}
-                    setSelectedSpecies={setSelectedSpecies}
-                    speciesOptions={speciesOptions}
-                  />
-                  <hr className="w-[80%]" />
-                  <FilterYear
-                    trees={trees}
-                    selectedYear={selectedYear}
-                    setSelectedSYear={setSelectedSYear}
-                    yearOptions={yearOptions}
-                  />
+                  {trees.some((t) => t.plot_id === mapCenter) ? (
+                    <>
+                      <FilterTrees
+                        trees={trees}
+                        selectedSpecies={selectedSpecies}
+                        setSelectedSpecies={setSelectedSpecies}
+                        speciesOptions={speciesOptions}
+                      />
+                      <hr className="w-[80%]" />
+                      <FilterYear
+                        trees={trees}
+                        selectedYear={selectedYear}
+                        setSelectedSYear={setSelectedSYear}
+                        yearOptions={yearOptions}
+                      />
+                    </>
+                  ) : (
+                    <div className="w-64 h-full flex justify-center items-center">
+                      <p>No data is available !</p>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -192,6 +205,7 @@ function Map() {
         setShowVideo={setShowVideo}
         setShowFilter={setShowFilter}
         setShowPanorama={setShowPanorama}
+        setMapCenter={setMapCenter}
       />
     </div>
   );
