@@ -9,15 +9,15 @@ function Mainbody() {
 
   return (
     <>
-      <div className="w-[100%] h-screen flex justify-center items-center">
-        <div className="w-[1200px] h-[100%] ">
+      <div className=" w-[full] lg:w-[100%] h-screen flex justify-center items-center">
+        <div className=" px-2 lg:w-[1200px] h-[100%]">
           <NavBar />
           {/* {areaName && (
             <h1 className="w-[100%] pl-5 py-5 font-bold  text-center">
               {areaName}
             </h1>
           )} */}
-          <div className="flex justify-center items-center gap-5 mt-5">
+          <div className="flex justify-center items-center gap-5 mt-6">
             <Map />
             {/* <div className="w-[45%] border border-gray-500 p-3 h-[400px]">
               <p>information</p>

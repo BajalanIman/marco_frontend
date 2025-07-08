@@ -138,11 +138,7 @@ const LeafletContainer = ({
       maxZoom={22}
       minZoom={4}
       scrollWheelZoom={true}
-      style={{
-        height: "350px",
-        width: "700px",
-        transition: "width 0.3s ease-in-out",
-      }}
+      className="transition-all duration-300 h-[350px] w-[full] px-4 lg:w-[700px]"
     >
       {/* ✅ Add multiple base layers */}
       <LayersControl position="topright">

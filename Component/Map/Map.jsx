@@ -74,7 +74,7 @@ function Map() {
         });
 
   return (
-    <div className="flex justify-start w-full">
+    <div className="lg:flex px-4 lg:px-0 lg:justify-start w-full">
       {zoomLevel > 14 ? (
         <>
           <div className="flex flex-col">
@@ -132,10 +132,10 @@ function Map() {
               )}
             </div>
 
-            <hr className="w-[80%]" />
+            <hr className="w-[95%] lg:w-[80%]" />
 
             {/* Panel content */}
-            <div className="h-64 flex w-[400px]">
+            <div className="h-72 mb-3 lg:mb-0 lg:h-64 flex w-[400px]">
               {showFilter && !treeVideo.tree_id && (
                 <div className="flex flex-col gap-4">
                   {trees.some((t) => t.plot_id === mapCenter) ? (
@@ -146,7 +146,7 @@ function Map() {
                         setSelectedSpecies={setSelectedSpecies}
                         speciesOptions={speciesOptions}
                       />
-                      <hr className="w-[80%]" />
+                      <hr className="w-[95%] lg:w-[80%]" />
                       <FilterYear
                         trees={trees}
                         selectedYear={selectedYear}
@@ -155,7 +155,7 @@ function Map() {
                       />
                     </>
                   ) : (
-                    <div className="w-64 h-full flex justify-center items-center">
+                    <div className="w-[400px] lg:w-64 h-full flex justify-center items-center">
                       <p>No data is available !</p>
                     </div>
                   )}
@@ -167,7 +167,7 @@ function Map() {
                   src="https://vr-easy.com/27323/"
                   allowFullScreen
                   name="idIframe"
-                  className="h-[250px] pr-5 pt-2"
+                  className="lg:h-[250px] lg:pr-5 pt-2"
                   width={!treeVideo.tree_id ? "400px" : "300px"}
                 ></iframe>
               )}
@@ -179,8 +179,8 @@ function Map() {
           </div>
         </>
       ) : (
-        <div className="w-[400px] pr-16">
-          <p className="text-justify pt-2">
+        <div className="lg:pr-16 lg:w-[400px]">
+          <p className="text-justify py-2">
             The primary objectives of this web tool are to centralize, organize,
             and present data collected from various agroforestry sites
             associated with Eberswalde University of Sustainable Development.

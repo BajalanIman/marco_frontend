@@ -29,7 +29,8 @@ const FilterYear = ({ trees, selectedYear, setSelectedSYear, yearOptions }) => {
             setSelectedSYear(selected.filter((v) => v !== "ALL"));
           }
         }}
-        style={{ width: "90%", height: "60%" }}
+        className="w-[100%] lg:w-[90%]"
+        // style={{ width: "90%", height: "60%" }}
       >
         <option value="ALL">All</option>
         {yearOptions.map((year_planted) => (

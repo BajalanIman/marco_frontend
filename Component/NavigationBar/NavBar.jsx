@@ -20,7 +20,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="flex border-b-[1px] py-4 relative justify-between ">
+    <div className="flex border-b-[1px] py-4 px-2 lg:px-0 relative justify-between ">
       <h1 className="font-bold from-neutral-800 pt-2">
         Roots and robot project
       </h1>
