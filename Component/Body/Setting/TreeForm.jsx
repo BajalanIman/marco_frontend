@@ -113,15 +113,15 @@ const TreeForm = ({ areaId, plotId }) => {
   };
 
   return (
-    <div className="space-y-4 p-4 bg-gray-100 rounded-xl">
+    <div className="space-y-4 py-4 px-2 bg-gray-100 rounded-xl">
       <p>Area Id: {areaId}</p>
       <ReactFileReader handleFiles={handleFiles} fileTypes={[".csv"]}>
-        <button className="btn bg-blue-600 text-white px-4 py-2 w-30 rounded">
+        <button className="btn bg-blue-600 text-white py-2  w-28 rounded">
           Upload
         </button>
       </ReactFileReader>
       <button
-        className="btn bg-green-600 text-white px-4 py-2 w-30 rounded"
+        className="btn bg-green-600 text-white py-2  w-28 rounded"
         onClick={submitDataHandler}
         // onClick={async () => {
         //   try {
@@ -149,7 +149,7 @@ const TreeForm = ({ areaId, plotId }) => {
       </button>
       {/* Display table if dataFromCSV has items */}
       {dataFromCSV.length > 0 && (
-        <div className="flex justify-center h-96 overflow-auto">
+        <div className="flex justify-center items-center h-96 overflow-auto w-[400px] sm:w-[600px] md:w-[750px] lg:w-[750px]">
           <table>
             <thead>
               <tr>

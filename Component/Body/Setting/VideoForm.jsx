@@ -61,21 +61,21 @@ const VideoForm = () => {
   return (
     <div
       style={{ padding: "1rem" }}
-      className="bg-gray-100 p-4 border rounded-xl shadow-sm "
+      className="bg-gray-100 p-4 border rounded-xl shadow-sm"
     >
       <div onClick={toggleForm} className="flex justify-between">
         <button>Add a New Video</button>
         {!showForm && <ChevronsDown />}
         {showForm && <ChevronsUp />}
       </div>
-      <div className="flex justify-between">
-        <div className="w-1/2">
+      <div className="lg:flex lg:justify-between ">
+        <div className="lg:w-1/2">
           {showForm && (
             <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
               <div className=" flex flex-col gap-1 mt-4">
                 <label>Video Name:</label>
                 <input
-                  className="w-72 h-8 p-2 border-[1px] border-gray-200 rounded-sm"
+                  className="lg:w-72 h-8 p-2 border-[1px] border-gray-200 rounded-sm"
                   placeholder="A name for video"
                   type="text"
                   name="video_name"
@@ -88,7 +88,7 @@ const VideoForm = () => {
               <div className=" flex flex-col gap-1 mt-4">
                 <label>Video URL:</label>
                 <input
-                  className="w-72 h-8 p-2 border-[1px] border-gray-200 rounded-sm"
+                  className="lg:w-72 h-8 p-2 border-[1px] border-gray-200 rounded-sm"
                   placeholder="A video URL"
                   type="text"
                   name="video_url_id"
@@ -101,7 +101,7 @@ const VideoForm = () => {
               <div className=" flex flex-col gap-1 mt-4">
                 <label>Recorded At:</label>
                 <input
-                  className="w-72 h-8 p-2 border-[1px] border-gray-200 rounded-sm"
+                  className="lg:w-72 h-8 p-2 border-[1px] border-gray-200 rounded-sm"
                   type="datetime-local"
                   name="recorded_at"
                   value={videoData.recorded_at}
@@ -125,8 +125,8 @@ const VideoForm = () => {
             </form>
           )}
         </div>
-        <div className="w-1/2">
-          {showPreview && videoData.video_url_id && (
+        <div className="lg:w-1/2">
+          {showPreview && videoData.video_url_id && showForm && (
             <div className="mt-4">
               <iframe
                 width="100%"

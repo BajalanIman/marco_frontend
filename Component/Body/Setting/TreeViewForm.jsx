@@ -46,7 +46,7 @@ const TreeViewForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-4 bg-white rounded-xl shadow">
+    <div className="max-w-md mx-auto mt-10 p-4 bg-white rounded-xl shadow mb-96">
       <h1 className="text-xl font-bold mb-4">Upload Tree View CSV</h1>
       <input
         type="file"

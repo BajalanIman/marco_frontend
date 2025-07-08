@@ -41,14 +41,14 @@ const Setting = () => {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div className="w-[100%] h-screen flex justify-center items-center mb-48 relative">
-      <div className="w-[800px] h-[100%] ">
+    <div className="w-full flex justify-center">
+      <div className="pl-2 pr-2 lg:w-[800px] h-[100%]">
         <h2 className="text-xl text-center py-5 font-bold">
           Welcome, {user.full_name}
         </h2>
         {user.role === "admin" && assignedArea && (
-          <div className="flex flex-col gap-3 pl-2">
-            <p>You are responsible for this area:</p>
+          <div className="flex flex-col gap-3">
+            <p className="pl-2">You are responsible for this area:</p>
 
             <AreaDetails areaId={assignedArea} />
 
