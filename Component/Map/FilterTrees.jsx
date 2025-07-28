@@ -1,17 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const FilterTrees = ({
-  trees,
   selectedSpecies,
   setSelectedSpecies,
   speciesOptions,
 }) => {
-  useEffect(() => {
-    if (trees.length > 0 && selectedSpecies.length === 0) {
-      setSelectedSpecies(["ALL"]);
-    }
-  }, [trees]);
-
   return (
     <div className="mb-1 flex flex-col w-[100%] lg:w-[400px]">
       <label htmlFor="species-select" className="pb-2">
@@ -20,21 +13,24 @@ const FilterTrees = ({
       <select
         id="species-select"
         multiple
+        size="10"
         value={selectedSpecies}
         onChange={(e) => {
-          const selected = Array.from(
-            e.target.selectedOptions,
-            (opt) => opt.value
-          );
+          const options = e.target.options;
+          const selected = [];
+          for (let i = 0; i < options.length; i++) {
+            if (options[i].selected) {
+              selected.push(options[i].value);
+            }
+          }
+
           if (selected.includes("ALL")) {
-            // Only "All" should be selected
             setSelectedSpecies(["ALL"]);
           } else {
-            // Remove "ALL" if it was previously selected
-            setSelectedSpecies(selected.filter((v) => v !== "ALL"));
+            setSelectedSpecies(selected);
           }
         }}
-        className="w-[100%] lg:w-[90%] h-[100%] lg:h-[70%]"
+        className="w-[100%] lg:w-[90%] h-28 border border-gray-300 rounded p-2"
       >
         <option value="ALL">All</option>
         {speciesOptions.map((species) => (

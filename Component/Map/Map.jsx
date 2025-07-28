@@ -14,7 +14,17 @@ function Map() {
   const [showFilter, setShowFilter] = useState(true);
   const [showPanorama, setShowPanorama] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
-  const [mapCenter, setMapCenter] = useState();
+  const [mapCenter, setMapCenter] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [yearBtnColor, setYearBtnColor] = useState(null);
+
+  const [aerialImagesYear, setAerialImagesYear] = useState([
+    { id: 0, year: "None" },
+    { id: 1, year: 2019 },
+    { id: 2, year: 2020 },
+    { id: 3, year: "All" },
+  ]);
+  const [aerialImagehandlerPass, setAerialImagehandlerPass] = useState(null);
 
   // useEffect(() => {
   //   console.log("📍 mapCenter updated:", mapCenter);
@@ -33,6 +43,12 @@ function Map() {
 
         setPlots(plotsData);
         setTrees(treesData);
+
+        // Initialize selections after data loads
+        if (treesData.length > 0) {
+          setSelectedSpecies(["ALL"]);
+          setSelectedSYear(["ALL"]);
+        }
       } catch (err) {
         console.error("Failed to fetch data", err);
       }
@@ -73,6 +89,11 @@ function Map() {
           return speciesMatch && yearMatch;
         });
 
+  const aerialImagehandler = ({ year }) => {
+    setAerialImagehandlerPass(year);
+    setYearBtnColor(year);
+  };
+
   return (
     <div className="lg:flex px-4 lg:px-0 lg:justify-start w-full">
       {zoomLevel > 14 ? (
@@ -110,7 +131,7 @@ function Map() {
                     : "bg-slate-200 text-black shadow-lg border border-slate-400"
                 }`}
               >
-                360°
+                Image
               </button>
 
               {/* Video Button – only show if tree has video */}
@@ -137,8 +158,8 @@ function Map() {
             {/* Panel content */}
             <div className="h-72 mb-3 lg:mb-0 lg:h-64 flex w-[400px]">
               {showFilter && !treeVideo.tree_id && (
-                <div className="flex flex-col gap-4">
-                  {trees.some((t) => t.plot_id === mapCenter) ? (
+                <div className="flex flex-col gap-4 w-96">
+                  {mapCenter && trees.some((t) => t.plot_id === mapCenter) ? (
                     <>
                       <FilterTrees
                         trees={trees}
@@ -156,20 +177,39 @@ function Map() {
                     </>
                   ) : (
                     <div className="w-[400px] lg:w-64 h-full flex justify-center items-center">
-                      <p>No data is available !</p>
+                      <p>No data is available!!!</p>
                     </div>
                   )}
                 </div>
               )}
 
               {showPanorama && !treeVideo.tree_id && (
-                <iframe
-                  src="https://vr-easy.com/27323/"
-                  allowFullScreen
-                  name="idIframe"
-                  className="lg:h-[250px] lg:pr-5 pt-2"
-                  width={!treeVideo.tree_id ? "400px" : "300px"}
-                ></iframe>
+                <div className="flex gap-2 flex-col justify-center">
+                  {mapCenter && trees.some((t) => t.plot_id === mapCenter) ? (
+                    <div>
+                      {aerialImagesYear.map((i) => (
+                        <div className="w-[400px] lg:w-64 flex">
+                          <button
+                            className={`w-96 py-1 border 
+                        ${
+                          yearBtnColor === i.year
+                            ? "bg-[#10bc98] text-white shadow-lg border border-slate-400 mt-3"
+                            : "bg-slate-200 text-black shadow-lg border border-slate-400 mt-3"
+                        } rounded-md`}
+                            key={i.id}
+                            onClick={() => aerialImagehandler({ year: i.year })}
+                          >
+                            {i.year}
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="w-[400px] lg:w-64 h-full flex justify-center items-center">
+                      <p>"No image is available!!!"</p>
+                    </div>
+                  )}
+                </div>
               )}
 
               {treeVideo.tree_id && showVideo && (
@@ -206,6 +246,7 @@ function Map() {
         setShowFilter={setShowFilter}
         setShowPanorama={setShowPanorama}
         setMapCenter={setMapCenter}
+        aerialImagehandlerPass={aerialImagehandlerPass}
       />
     </div>
   );

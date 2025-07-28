@@ -3,6 +3,7 @@ import tree from "../../assets/tree-svgrepo-com.svg";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import * as turf from "@turf/turf";
+import AerialImage from "./AerialImage";
 
 import {
   MapContainer,
@@ -103,6 +104,7 @@ const LeafletContainer = ({
   setShowFilter,
   setShowPanorama,
   setMapCenter,
+  aerialImagehandlerPass,
 }) => {
   const center = [52.93754351, 13.12866669];
 
@@ -140,6 +142,7 @@ const LeafletContainer = ({
       scrollWheelZoom={true}
       className="transition-all duration-300 h-[350px] w-[full] px-4 lg:w-[700px]"
     >
+      <AerialImage aerialImagehandlerPass={aerialImagehandlerPass} />
       {/* ✅ Add multiple base layers */}
       <LayersControl position="topright">
         <LayersControl.BaseLayer checked name="OpenStreetMap">

@@ -1,41 +1,37 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-const FilterYear = ({ trees, selectedYear, setSelectedSYear, yearOptions }) => {
-  useEffect(() => {
-    if (trees.length > 0 && selectedYear.length === 0) {
-      setSelectedSYear(["ALL"]);
-    }
-  }, [trees]);
-
+const FilterYear = ({ selectedYear, setSelectedSYear, yearOptions }) => {
   return (
-    <div className="mb-1 flex flex-col w-[400px]">
+    <div className="mb-1 flex flex-col w-[100%] lg:w-[400px]">
       <label htmlFor="year-select" className="pb-2">
         <strong>Select cultivation year:</strong>
       </label>
       <select
         id="year-select"
         multiple
+        size="10"
         value={selectedYear}
         onChange={(e) => {
-          const selected = Array.from(
-            e.target.selectedOptions,
-            (opt) => opt.value
-          );
+          const options = e.target.options;
+          const selected = [];
+          for (let i = 0; i < options.length; i++) {
+            if (options[i].selected) {
+              selected.push(options[i].value);
+            }
+          }
+
           if (selected.includes("ALL")) {
-            // Only "All" should be selected
             setSelectedSYear(["ALL"]);
           } else {
-            // Remove "ALL" if it was previously selected
-            setSelectedSYear(selected.filter((v) => v !== "ALL"));
+            setSelectedSYear(selected);
           }
         }}
-        className="w-[100%] lg:w-[90%]"
-        // style={{ width: "90%", height: "60%" }}
+        className="w-[100%] lg:w-[90%] h-20 border border-gray-300 rounded p-2"
       >
         <option value="ALL">All</option>
-        {yearOptions.map((year_planted) => (
-          <option key={year_planted} value={year_planted}>
-            {year_planted}
+        {yearOptions.map((year) => (
+          <option key={year} value={year}>
+            {year}
           </option>
         ))}
       </select>
