@@ -46,21 +46,18 @@ const TreeViewForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-4 bg-white rounded-xl shadow mb-96">
+    <div className="max-w-md mx-auto mt-10 p-4 bg-white rounded-xl mb-5 shadow-sm border border-gray-300">
       <h1 className="text-xl font-bold mb-4">Upload Tree View CSV</h1>
-      <input
-        type="file"
-        accept=".csv"
-        onChange={handleFileChange}
-        className="mb-4"
-      />
-      <button
-        onClick={handleUpload}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        disabled={uploading}
-      >
-        {uploading ? "Uploading..." : "Upload"}
-      </button>
+      <div className="flex justify-between items-center">
+        <input type="file" accept=".csv" onChange={handleFileChange} />
+        <button
+          onClick={handleUpload}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          disabled={uploading}
+        >
+          {uploading ? "Uploading..." : "Upload"}
+        </button>
+      </div>
       {result && <p className="mt-4 text-green-600">{result}</p>}
     </div>
   );

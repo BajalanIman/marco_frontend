@@ -61,9 +61,9 @@ const VideoForm = () => {
   return (
     <div
       style={{ padding: "1rem" }}
-      className="bg-gray-100 p-4 border rounded-xl shadow-sm"
+      className="bg-gray-100 p-4 border rounded-xl shadow-sm border-gray-300"
     >
-      <div onClick={toggleForm} className="flex justify-between">
+      <div onClick={toggleForm} className="flex justify-between p-[1px]">
         <button>Add a New Video</button>
         {!showForm && <ChevronsDown />}
         {showForm && <ChevronsUp />}
@@ -71,7 +71,7 @@ const VideoForm = () => {
       <div className="lg:flex lg:justify-between ">
         <div className="lg:w-1/2">
           {showForm && (
-            <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
+            <form onSubmit={handleSubmit}>
               <div className=" flex flex-col gap-1 mt-4">
                 <label>Video Name:</label>
                 <input

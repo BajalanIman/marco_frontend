@@ -7,7 +7,7 @@ const TreeForm = ({ areaId, plotId }) => {
   const [showModal, setShowModal] = useState(false);
   const [newMessage, setNewMessage] = useState("");
 
-  console.log(plotId);
+  // console.log(plotId);
 
   const handleFiles = (files) => {
     let reader = new FileReader();

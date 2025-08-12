@@ -8,6 +8,9 @@ import TreeForm from "./TreeForm";
 import PlotsList from "./PlotsList";
 import TreeViewForm from "./TreeViewForm";
 import VideoForm from "./VideoForm";
+import SoilUploaderForm from "./SoilUploaderForm";
+import StepDivider from "./StepDivider";
+import ShowComponent from "./ShowComponent";
 
 const Setting = () => {
   const [assignedArea, setAssignedArea] = useState(null);
@@ -52,22 +55,15 @@ const Setting = () => {
 
             <AreaDetails areaId={assignedArea} />
 
-            {/* new plots */}
-            <div className="bg-gray-100 rounded-xl shadow-sm">
-              <div
-                className="flex justify-between py-3 px-5 "
-                onClick={() => {
-                  setShowPlotMaker(!showPlotMaker);
-                }}
-              >
-                <p>Adding new plot</p>
-                {!showPlotMaker && <ChevronsDown />}
-                {showPlotMaker && <ChevronsUp />}
-              </div>
-              {showPlotMaker && <PlotForm areaId={assignedArea} />}
-            </div>
-            {/* Plots list */}
-            <div>
+            {/* new plots------------------------------------------------------ */}
+            <StepDivider step={1} />
+            <ShowComponent title="Adding new plot">
+              <PlotForm areaId={assignedArea} />
+            </ShowComponent>
+
+            {/* Plots list -----------------------------------------------------*/}
+            <StepDivider step={2} />
+            <>
               <p className="pl-4">Please select Your plot!</p>
               <PlotsList
                 areaId={assignedArea}
@@ -76,39 +72,44 @@ const Setting = () => {
                 selectedPlot={selectedPlot}
                 setSelectedPlot={setSelectedPlot}
               />
-            </div>
-            {/* New trees */}
-            {selectedPlot && (
-              <div className="bg-gray-100 rounded-xl shadow-sm">
-                <div
-                  className="flex justify-between py-3 px-5 "
-                  onClick={() => {
-                    setShowTreeMaker(!showTreeMaker);
-                  }}
+            </>
+
+            {/* Soil sample ---------------------------------------------- */}
+            {selectedPlot && selectedPlot.plot_id != null && (
+              <>
+                <StepDivider step={3} />
+                <ShowComponent
+                  title="Adding soil data to plot"
+                  selectedPlot={selectedPlot}
                 >
-                  <span className="flex">
-                    <p>Adding new trees </p>
-                    {selectedPlot && (
-                      <p className="pl-1">to {selectedPlot.plot_name}</p>
-                    )}
-                  </span>
-                  {!showTreeMaker && <ChevronsDown />}
-                  {showTreeMaker && <ChevronsUp />}
-                </div>
-                {showTreeMaker && (
-                  <TreeForm
-                    areaId={assignedArea}
-                    plotId={selectedPlot.plot_id}
-                  />
-                )}
-              </div>
+                  <SoilUploaderForm plotId={selectedPlot.plot_id} />
+                </ShowComponent>
+                {/* New trees ---------------------------------------------- */}
+                <ShowComponent
+                  title="Adding new trees to plot"
+                  selectedPlot={selectedPlot}
+                >
+                  {selectedPlot && selectedPlot.plot_id != null && (
+                    <TreeForm
+                      areaId={assignedArea}
+                      plotId={selectedPlot.plot_id}
+                    />
+                  )}
+                </ShowComponent>
+                {/* Video ---------------------------------------------- */}
+                <VideoForm />
+                {/* Tree View ---------------------------------------------- */}
+                <ShowComponent title="Adding tree view">
+                  <TreeViewForm />
+                </ShowComponent>
+                <div className="mb-64"></div>
+              </>
             )}
-            {selectedPlot && <VideoForm />}
-            {selectedPlot && <TreeViewForm />}
           </div>
         )}
       </div>
-      <div className=" fixed top-3 left-3  rounded-full p-1 ">
+      {/* Close button  ---------------------------------------------- */}
+      <div className=" fixed top-3 left-3  rounded-full p-1">
         <Link to="/">
           <CircleX
             fill="black"
