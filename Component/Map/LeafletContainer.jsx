@@ -105,6 +105,9 @@ const LeafletContainer = ({
   setShowPanorama,
   setMapCenter,
   aerialImagehandlerPass,
+  soilLocations,
+  showSoilData,
+  setSelectedLocation,
 }) => {
   const center = [52.93754351, 13.12866669];
 
@@ -166,6 +169,35 @@ const LeafletContainer = ({
         plots={plots}
         setMapCenter={setMapCenter}
       />
+      {/* Soil sample location markers (clustered) */}
+      {zoomLevel > 14 &&
+        showSoilData &&
+        soilLocations &&
+        soilLocations.length > 0 && (
+          <MarkerClusterGroup chunkedLoading>
+            {soilLocations.map((loc, idx) => {
+              if (
+                loc.x === null ||
+                loc.y === null ||
+                Number.isNaN(loc.x) ||
+                Number.isNaN(loc.y)
+              )
+                return null;
+
+              const position = [Number(loc.y), Number(loc.x)];
+
+              return (
+                <Marker
+                  key={`soil-${idx}`}
+                  position={position}
+                  eventHandlers={{
+                    click: () => setSelectedLocation(loc), // open modal
+                  }}
+                />
+              );
+            })}
+          </MarkerClusterGroup>
+        )}
 
       {/* Plot Markers */}
       <MarkerClusterGroup chunkedLoading>

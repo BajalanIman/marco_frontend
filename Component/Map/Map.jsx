@@ -3,6 +3,8 @@ import FilterTrees from "./FilterTrees";
 import LeafletContainer from "./LeafletContainer";
 import ShowVideos from "./ShowVideos";
 import FilterYear from "./FilterYear";
+import SoilSamplesTable from "./Soil/SoilSamplesTable";
+import SoilInformationOnMap from "./Soil/SoilInformationOnMap";
 
 function Map() {
   const [plots, setPlots] = useState([]);
@@ -17,6 +19,9 @@ function Map() {
   const [mapCenter, setMapCenter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [yearBtnColor, setYearBtnColor] = useState(null);
+  const [soilLocations, setSoilLocations] = useState([]);
+  const [showSoilData, setShowSoilData] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
 
   const [aerialImagesYear, setAerialImagesYear] = useState([
     { id: 0, year: "None" },
@@ -95,7 +100,7 @@ function Map() {
   };
 
   return (
-    <div className="lg:flex px-4 lg:px-0 lg:justify-start w-full">
+    <div className="lg:flex px-4 lg:px-0 lg:justify-start w-full ">
       {zoomLevel > 14 ? (
         <>
           <div className="flex flex-col">
@@ -107,6 +112,7 @@ function Map() {
                   setShowVideo(false);
                   setTreeVideo({});
                   setShowFilter(true);
+                  setShowSoilData(false);
                 }}
                 className={`w-[70px] py-2 rounded ${
                   showFilter && (!treeVideo.tree_id || !showVideo)
@@ -124,6 +130,7 @@ function Map() {
                   setShowVideo(false);
                   setTreeVideo({});
                   setShowPanorama(true);
+                  setShowSoilData(false);
                 }}
                 className={`w-[70px] py-2 rounded ${
                   showPanorama && (!treeVideo.tree_id || !showVideo)
@@ -134,6 +141,23 @@ function Map() {
                 Image
               </button>
 
+              <button
+                onClick={() => {
+                  setShowFilter(false);
+                  setShowVideo(false);
+                  setTreeVideo({});
+                  setShowPanorama(false);
+                  setShowSoilData(true);
+                }}
+                className={`w-[70px] py-2 rounded ${
+                  showSoilData && (!treeVideo.tree_id || !showVideo)
+                    ? "bg-[#10bc98] text-white shadow-lg border border-slate-400"
+                    : "bg-slate-200 text-black shadow-lg border border-slate-400"
+                }`}
+              >
+                Soil
+              </button>
+
               {/* Video Button – only show if tree has video */}
               {treeVideo?.tree_id && !showFilter && !showPanorama && (
                 <button
@@ -141,6 +165,7 @@ function Map() {
                     setShowFilter(false);
                     setShowPanorama(false);
                     setShowVideo(true);
+                    setShowSoilData(false);
                   }}
                   className={`w-[70px] py-2 rounded ${
                     showVideo
@@ -181,6 +206,14 @@ function Map() {
                     </div>
                   )}
                 </div>
+              )}
+
+              {zoomLevel > 14 && showSoilData && !treeVideo.tree_id && (
+                <SoilSamplesTable
+                  plotId={1}
+                  setSoilLocations={setSoilLocations}
+                  showSoilData={showSoilData}
+                />
               )}
 
               {showPanorama && !treeVideo.tree_id && (
@@ -247,7 +280,16 @@ function Map() {
         setShowPanorama={setShowPanorama}
         setMapCenter={setMapCenter}
         aerialImagehandlerPass={aerialImagehandlerPass}
+        soilLocations={soilLocations}
+        showSoilData={showSoilData}
+        setSelectedLocation={setSelectedLocation}
       />
+      {selectedLocation && (
+        <SoilInformationOnMap
+          location={selectedLocation}
+          onClose={() => setSelectedLocation(null)}
+        />
+      )}
     </div>
   );
 }
