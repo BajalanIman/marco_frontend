@@ -280,16 +280,17 @@ function Map() {
         ) : (
           <div className="lg:pr-16 lg:w-[400px]">
             <p className="text-justify py-2">
-              The primary objectives of this web tool are to centralize,
-              organize, and present data collected from various agroforestry
-              sites associated with Eberswalde University of Sustainable
-              Development. All relevant information is stored in a structured
-              database, allowing for efficient data management and
-              accessibility. You can interact with the map interface to explore
-              specific locations in greater detail. By zooming in and selecting
-              individual plots, additional data and functionalities become
-              available, offering a more comprehensive understanding of each
-              site.
+              Die Hauptziele dieses Web-Tools sind die Zentralisierung,
+              Organisation und Präsentation von Daten, die an verschiedenen
+              Agroforststandorten im Zusammenhang mit der Hochschule für
+              nachhaltige Entwicklung Eberswalde gesammelt wurden. Alle
+              relevanten Informationen werden in einer strukturierten Datenbank
+              gespeichert, was eine effiziente Datenverwaltung und
+              -zugänglichkeit ermöglicht. Über die Kartenoberfläche können Sie
+              bestimmte Standorte genauer erkunden. Durch Zoomen und Auswählen
+              einzelner Parzellen werden zusätzliche Daten und Funktionen
+              verfügbar, die ein umfassenderes Verständnis jedes Standorts
+              ermöglichen.
             </p>
           </div>
         )}

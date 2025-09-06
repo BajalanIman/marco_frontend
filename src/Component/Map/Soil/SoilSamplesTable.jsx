@@ -143,9 +143,9 @@ const SoilSamplesTable = ({ plotId, setSoilLocations, showSoilData }) => {
             <div className="text-red-600">Soil load error: {error}</div>
           ) : (
             <div className="text-gray-700">
-              Soil data have been collected from different parts of the plot. By
-              clicking on each soil point on the map, the collected information
-              will appear.
+              Boden-Daten wurden an verschiedenen Stellen der Parzelle erhoben.
+              Durch Anklicken der einzelnen Bodenpunkte auf der Karte werden die
+              erhobenen Informationen angezeigt.
             </div>
           )}
         </div>
