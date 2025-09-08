@@ -160,7 +160,7 @@ const SoilUploaderForm = ({ plotId }) => {
               return;
             }
 
-            const resp = await axios.post("http://localhost:8800/api/soil", {
+            const resp = await axios.post("localhost:8800/api/soil", {
               samples,
               plot_id: plotId, // helpful to pass top-level too
             });

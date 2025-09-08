@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Papa from "papaparse";
+import { BASE_URL } from "../../../constants/constants";
 
 const TreeViewForm = () => {
   const [csvFile, setCsvFile] = useState(null);
@@ -21,7 +22,7 @@ const TreeViewForm = () => {
         const parsedData = results.data;
 
         try {
-          const res = await fetch("http://localhost:8800/tree-view/import", {
+          const res = await fetch(`${BASE_URL}tree-view/import`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

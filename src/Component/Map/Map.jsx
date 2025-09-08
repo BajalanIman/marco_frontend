@@ -6,6 +6,7 @@ import FilterYear from "./FilterYear";
 import SoilSamplesTable from "./Soil/SoilSamplesTable";
 import SoilInformationOnMap from "./Soil/SoilInformationOnMap";
 import Researches from "./Research/Researches";
+import { BASE_URL } from "../../constants/constants";
 
 function Map() {
   const [plots, setPlots] = useState([]);
@@ -42,8 +43,8 @@ function Map() {
     const fetchData = async () => {
       try {
         const [plotsRes, treesRes] = await Promise.all([
-          fetch("http://localhost:8800/api/plots"),
-          fetch("http://localhost:8800/api/trees"),
+          fetch(`${BASE_URL}api/plots`),
+          fetch(`${BASE_URL}api/trees`),
         ]);
         const plotsData = await plotsRes.json();
         const treesData = await treesRes.json();

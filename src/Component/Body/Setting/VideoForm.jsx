@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ChevronsDown, ChevronsUp } from "lucide-react";
+import { BASE_URL } from "../../../constants/constants";
 
 const VideoForm = () => {
   const [videoData, setVideoData] = useState({
@@ -26,7 +27,7 @@ const VideoForm = () => {
         video_url_id: `https://www.youtube.com/embed/${videoData.video_url_id}`,
       };
 
-      const res = await axios.post("http://localhost:8800/video", payload);
+      const res = await axios.post(`${BASE_URL}video`, payload);
       setMessage("Video submitted successfully!");
       console.log("Video created:", res.data);
       setVideoData({

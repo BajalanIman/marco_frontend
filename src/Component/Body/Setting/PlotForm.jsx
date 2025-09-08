@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import PopupModal from "./PopupModal";
+import { BASE_URL } from "../../../constants/constants";
 
 const PlotForm = ({ areaId }) => {
   const [plotName, setPlotName] = useState("");
@@ -53,7 +54,7 @@ const PlotForm = ({ areaId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8800/api/plots", {
+      await axios.post(`${BASE_URL}api/plots`, {
         area_id: areaId,
         plot_name: plotName,
         plot_information: plotInfo,

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactFileReader from "react-file-reader";
 import PopupModal from "./PopupModal";
+import { BASE_URL } from "../../../constants/constants";
 
 const TreeForm = ({ areaId, plotId }) => {
   const [dataFromCSV, setDataFromCSV] = useState([]);
@@ -86,7 +87,7 @@ const TreeForm = ({ areaId, plotId }) => {
 
   const submitDataHandler = async () => {
     try {
-      const response = await fetch("http://localhost:8800/api/trees", {
+      const response = await fetch(`${BASE_URL}api/trees`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,7 +126,7 @@ const TreeForm = ({ areaId, plotId }) => {
         onClick={submitDataHandler}
         // onClick={async () => {
         //   try {
-        //     const response = await fetch("http://localhost:8800/api/trees", {
+        //     const response = await fetch(`${BASE_URL}api/trees`, {
         //       method: "POST",
         //       headers: {
         //         "Content-Type": "application/json",

@@ -1,8 +1,9 @@
 // src/components/Soil/SoilSamplesTable.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../../constants/constants";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8800";
+const API_BASE = import.meta.env.VITE_API_BASE || `${BASE_URL}`;
 
 const SoilSamplesTable = ({ plotId, setSoilLocations, showSoilData }) => {
   const [loading, setLoading] = useState(false);

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 import { Eye, EyeOff, X } from "lucide-react";
+import { BASE_URL } from "../../constants/constants";
 
 function Login() {
   const [form, setForm] = useState({
@@ -21,7 +22,7 @@ function Login() {
     setMessage("");
 
     try {
-      const res = await axios.post("http://localhost:8800/login", form);
+      const res = await axios.post(`${BASE_URL}login`, form);
       setMessage("Login successful!");
       setSuccess(true);
 

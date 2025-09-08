@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 import { Eye, EyeOff, X } from "lucide-react";
+import { BASE_URL } from "../../constants/constants";
 
 function SignUp() {
   const [form, setForm] = useState({
@@ -24,7 +25,7 @@ function SignUp() {
     setMessage("");
 
     try {
-      const res = await axios.post("http://localhost:8800/users", form);
+      const res = await axios.post(`${BASE_URL}users`, form);
       setMessage("Signup successful!");
       setSuccess(true);
 
